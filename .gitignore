@@ -1,1 +1,8 @@
 .DS_Store
+.vagrant/
+.vscode/
+*.log
+.workspace/
+*.pdf
+*.pyc
+

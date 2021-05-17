@@ -9,14 +9,14 @@
 Vagrant.configure(2) do |config|
 
   # 64 bit Ubuntu Vagrant Box
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/xenial64"
 
   ## Configure hostname and port forwarding
   config.vm.hostname = "mininet"
   config.ssh.forward_x11 = true
-  config.vm.network "forwarded_port", guest: 8888, host: 8888
+  config.vm.network "forwarded_port", guest: 8964, host: 8964
   # Assignment 7
-  config.vm.network "forwarded_port", guest: 12000, host: 12000
+  config.vm.network "forwarded_port", guest: 12020, host: 12020
 
   vagrant_root = File.dirname(__FILE__)
 
