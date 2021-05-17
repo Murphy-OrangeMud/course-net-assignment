@@ -213,8 +213,8 @@ class Network:
         allCorrect = True
         for src,dst in self.routes:
             route, isGood, _ = self.routes[(src,dst)]
-            routeStrings.append("{} -> {}: {} {}".format(src, dst, route,
-                "" if (isGood or not labelIncorrect) else "Incorrect Route"))
+            routeStrings.append("{} -> {}: {} {} {}".format(src, dst, route,
+                "" if (isGood or not labelIncorrect) else "Incorrect Route", self.correctRoutes[(src, dst)]))
             if not isGood:
                 allCorrect = False
         routeStrings.sort()

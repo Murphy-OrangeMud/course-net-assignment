@@ -33,6 +33,7 @@ class Client:
            If it's a "traceroute" packet, update the network object with it's
            route"""
         if packet.kind == Packet.TRACEROUTE:
+            print(packet.route)
             self.updateFunction(packet.srcAddr, packet.dstAddr, packet.route)
 
 
