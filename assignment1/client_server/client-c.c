@@ -18,19 +18,38 @@
 #define SEND_BUFFER_SIZE 2048
 
 
+int Socket(int domain, int type, int protocol) {
+  int sock;
+  if ((sock = socket(domain, type, protocol)) < 0)
+  {
+    perror("socket failed");
+    exit(EXIT_FAILURE);
+  }
+  return sock;
+}
+
+void Inet_pton(int domain, char *ip, struct in_addr *addr) {
+  if (inet_pton(domain, ip, addr) <= 0) {
+    perror("address failed");
+    exit(EXIT_FAILURE);
+  }
+}
+
+void Connect(int sock, struct sockaddr *addr, socklen_t addr_len) {
+  if (connect(sock, addr, addr_len) < 0) {
+    perror("connect failed");
+    exit(EXIT_FAILURE);
+  }
+}
+
 /* TODO: client()
  * Open socket and send message from stdin.
  * Return 0 on success, non-zero on failure
 */
 int client(char *server_ip, char *server_port) {
   // create socket
-  int sock = 0;
-  if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
-  {
-    perror("socket failed");
-    exit(EXIT_FAILURE);
-  }
-
+  int sock = Socket(AF_INET, SOCK_STREAM, 0);
+  
   // create server address
   struct sockaddr_in serv_addr;
   memset(&serv_addr, '0', sizeof(serv_addr));
@@ -38,21 +57,14 @@ int client(char *server_ip, char *server_port) {
   serv_addr.sin_port = htons(atoi(server_port));
 
   // convert IPv4 and IPv6 addresses from text to binary form
-  if(inet_pton(AF_INET, server_ip, &serv_addr.sin_addr)<=0)
-  {
-    perror("address failed");
-    exit(EXIT_FAILURE);
-  }
+  Inet_pton(AF_INET, server_ip, &serv_addr.sin_addr);
 
   // connect to server
-  if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
-  {
-    perror("connect failed");
-    exit(EXIT_FAILURE);
-  }
+  Connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
 
   // send data
-  char buffer[SEND_BUFFER_SIZE] = "Hello, world!\n";
+  char buffer[SEND_BUFFER_SIZE];
+  fread(buffer, SEND_BUFFER_SIZE, 1, stdin);
   send(sock, buffer, strlen(buffer), 0);
 
   // close socket

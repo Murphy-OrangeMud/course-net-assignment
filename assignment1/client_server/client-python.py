@@ -1,7 +1,7 @@
 ###############################################################################
 # client-python.py
-# Name:
-# JHED ID:
+# Name: Murphy Cheng
+# JHED ID: 1800017781
 ###############################################################################
 
 import sys
@@ -10,10 +10,9 @@ import socket
 SEND_BUFFER_SIZE = 2048
 
 def client(server_ip, server_port):
-    """TODO: Open socket and send message from sys.stdin"""
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((server_ip, server_port))
-    s.sendall("Hello, world!\n")
+    s.sendall(sys.stdin.read())
     s.close()
 
 def main():
