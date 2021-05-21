@@ -22,6 +22,50 @@
       "action_params": {
         "smac": "00:00:00:00:01:03"
       }
+    },
+    {
+      "table": "MyIngress.next_hop",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.1.2", 32]
+      },
+      "action_name": "MyIngress.set_nhop",
+      "action_params": {
+        "base": 0,
+        "count": 1
+      }
+    },
+    {
+      "table": "MyIngress.next_hop",
+      "match": {
+        "hdr.ipv4.dstAddr": ["10.0.1.3", 32]
+      },
+      "action_name": "MyIngress.set_nhop",
+      "action_params": {
+        "base": 0,
+        "count": 1
+      }
+    },
+    {
+      "table": "MyIngress.ip_port",
+      "match": {
+        "meta.nhop": 2
+      },
+      "action_name": "MyIngress.set_ip_egress",
+      "action_params": {
+        "ip": "00:00:00:00:01:02",
+        "port": 2 
+      }
+    },
+    {
+      "table": "MyIngress.ip_port",
+      "match": {
+        "meta.nhop": 3
+      },
+      "action_name": "MyIngress.set_ip_egress",
+      "action_params": {
+        "ip": "00:00:00:00:01:03",
+        "port": 3 
+      }
     }
   ]
 }

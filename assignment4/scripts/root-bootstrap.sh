@@ -8,6 +8,8 @@ DEBIAN_FRONTEND=noninteractive sudo add-apt-repository -y ppa:webupd8team/atom
 
 apt-get update
 
+export DEBIAN_FRONTEND=noninteractive
+
 KERNEL=$(uname -r)
 DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 apt-get install -y --no-install-recommends \
